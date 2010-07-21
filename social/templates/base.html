@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+ <title>WebConf Mashup</title>
+ <link rel="stylesheet" href="/static/css/base.css" />
+ <link rel="stylesheet" href="/static/css/jquery-ui-1.8.2.custom.css" />
+ {% block stylesheets %} {% endblock %}
+ <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+ <script type="text/javascript" src="/static/js/jquery-ui-1.8.2.custom.min.js"></script>
+ {% block scripts %} {% endblock %}
+ <script type="text/javascript">
+	$(function() {
+		$("#menu").tabs();
+	});
+ </script>
+ <link rel="shortcut icon" href="/static/images/favicon.ico" />
+</head>
+
+<body>
+<div id="container">
+	<div id="main">
+	    <div id="header">
+	    	<h1>Mashup Demo</h1>
+	    </div> 	
+		<div id="menu">
+			<ul>	    
+        		<li><a href="/feeds/">Feeds</a></li>
+        		<li><a href="#broadcast">Broadcast</a></li>
+			</ul>
+			<div id="broadcast">
+				<form id="">
+					{%csrf_token%}
+					{{broadcast_form}}
+					<input id="broadcast-submit" type="submit" value="Broadcast"></input>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

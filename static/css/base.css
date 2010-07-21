@@ -1,0 +1,15 @@
+body{
+	font-family: helvetica, arial, sans-serif;
+	height: 100%;
+}
+
+#broadcast-submit{
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	background:#93c3cd;
+	border:0;
+	color:#333333;
+	cursor:pointer;
+	font-size:1.5em;
+	text-align:center;	
+}
