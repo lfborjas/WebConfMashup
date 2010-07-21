@@ -1,4 +1,22 @@
 Instalación
+No es necesario, pero sí recomendable, instalar esto en un entorno virtual: así la instalación de django que uno tenga (y cualquier otro paquete) no se ve afectado por esta app.
+Para usar virtualenv, hay que bajarlo de http://pypi.python.org/pypi/virtualenv e instalarlo
+
+(alternativamente, si se tiene setuptools instalado ya, se puede ejecutar `sudo easy_install virtualenv`)
+
+Luego, se crea un virtualenv para este proyecto:
+
+virtualenv --no-site-packages WebConf
+
+Y dentro la carpeta WebConf, se agrega el código fuente.
+Para usarlo, ir a la carpeta bin/ dentro del virtualenv (WebConf) y ejecutar
+
+source activate
+
+Lo cual hará que python utilice las librerías y la versión del lenguaje instaladas dentro del entorno en lugar de
+las globales.
+
+Ahora, lo que sí es necesario:
 Bajar setuptools y pip de:
 http://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz#md5=7df2a529a074f613b509fb44feefe74e
 y
