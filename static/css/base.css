@@ -1,7 +1,6 @@
 body{
 	font-family: helvetica, arial, sans-serif;
-	height: 100%;
-    background-color: #8dabf6;
+	height: 100%;    
 }
 
 #broadcast-submit, #signout{
@@ -47,9 +46,9 @@ body{
 	color: #88a206 !important;
 }
 
-#menu, .ui-tabs-panel{
+/*#menu, .ui-tabs-panel{
     background-color: #4d6cba !important;
-}
+}*/
 
 #facebook_extras{
     float:right;
