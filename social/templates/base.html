@@ -9,6 +9,7 @@
   <script src="http://platform.twitter.com/anywhere.js?id={{TWITTER.API_KEY}}&v=1" type="text/javascript"></script>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
  <script type="text/javascript" src="/static/js/jquery-ui-1.8.2.custom.min.js"></script>
+ <script src="http://connect.facebook.net/en_US/all.js"></script>
  <!-- The following file implements the @Anywhere twitter api: http://dev.twitter.com/anywhere/begin -->
  <script type="text/javascript" src="/static/js/twitter.js"></script>
  <!-- The following implements some google calendar functionality -->
@@ -19,18 +20,35 @@
 </head>
 
 <body>
+<!-- This is to get facebook tags working -->
+<div id="fb-root"></div>
+<script>
+        FB.init({appId: '136659293032684', status: true, cookie: true, xfbml: true});
+        FB.Event.subscribe('auth.sessionChange', function(response) {
+          if (response.session) {
+
+          } else {
+            // The user has logged out, and the cookie has been cleared
+          }
+        });
+</script>
+<!-- Here ends facebook tags tweak -->
+
 <div id="container">
 	<div id="main">
 	    <div id="header">
 	    	<h1>Mashup Demo</h1>
-	    </div> 	
+            <fb:login-button id="faceboob_login" autologoutlink="true" perms="email, publish_stream, create_event, offline_access, read_stream"></fb:login-button>
+	    </div>
+
 		<div id="menu">
 			<ul>	    
         		<li><a href="/feeds/">Feeds</a></li>
                 <li><a href="#google">Google</a></li>
                 <li><a href="#twitter">Twitter</a></li>                
                 <li><a href="/facebook/">Facebook</a></li>
-			</ul>			
+
+			</ul>           
 			<div id="twitter">
 				<div id="twitter-connect-placeholder"></div>
 				<div id="status"></div>
@@ -47,6 +65,7 @@
 				<ul id="calendar-feed"></ul>
 			</div>
 		</div>
+
 	</div>
 </div>
 </body>
