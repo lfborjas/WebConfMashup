@@ -6,6 +6,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     (r'^$', 'social.views.broadcast'),
+    (r'^facebook/$', 'social.views.facebook_feed'),
     # Example:
     # (r'^mashup/', include('mashup.foo.urls')),
 

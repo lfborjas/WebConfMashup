@@ -1,12 +1,17 @@
 # Create your views here.
 from django.shortcuts import render_to_response
 from social.forms import BroadcastForm
+from django.utils.safestring import mark_safe
+from django.template.loader import render_to_string
+import facebook
+
 try:
     import json
 except:
     import django.utils.simplejson as json
 from django.http import HttpResponse
 from django.template import RequestContext
+from settings import FACEBOOK_APP_ID, FACEBOOK_APP_SECRET
 
 def _broadcast(text):
     """Broadcast the text in the sites"""
@@ -35,4 +40,16 @@ def feeds(request):
     
     feeds = _feeds(request.user)
     return HttpResponse(json.dumps({'feed': mark_safe(render_to_string("feed.html", {'feed': feeds}))}))
-    
+
+def facebook_feed(request):
+    fb_user = facebook.get_user_from_cookie(request.COOKIES, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET)
+
+    if fb_user:
+        graph = facebook.GraphAPI(fb_user["access_token"])
+        feed = graph.get_connections('me', 'feed')
+        feed_list = []
+        for entry in feed['data']:
+            if entry.has_key('message'):
+                feed_list.append(entry['message'])
+
+        return HttpResponse(mark_safe(render_to_string('feed.html', {'feeds':feed_list})))

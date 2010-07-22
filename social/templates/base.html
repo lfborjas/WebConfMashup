@@ -7,6 +7,8 @@
  {% block stylesheets %} {% endblock %}
  <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
  <script type="text/javascript" src="/static/js/jquery-ui-1.8.2.custom.min.js"></script>
+ <script src="http://connect.facebook.net/en_US/all.js"></script>
+
  {% block scripts %} {% endblock %}
  <script type="text/javascript">
 	$(function() {
@@ -17,10 +19,25 @@
 </head>
 
 <body>
+<!-- This is to get facebook tags working -->
+<div id="fb-root"></div>
+<script>
+        FB.init({appId: '145237748824969', status: true, cookie: true, xfbml: true});
+        FB.Event.subscribe('auth.sessionChange', function(response) {
+          if (response.session) {
+
+          } else {
+            // The user has logged out, and the cookie has been cleared
+          }
+        });
+</script>
+<!-- Here ends facebook tags tweak -->
+
 <div id="container">
 	<div id="main">
 	    <div id="header">
 	    	<h1>Mashup Demo</h1>
+            <fb:login-button id="faceboob_login" autologoutlink="true" perms="email, publish_stream, create_event, offline_access, read_stream"></fb:login-button>
 	    </div> 	
 		<div id="menu">
 			<ul>	    
@@ -29,13 +46,7 @@
                 <li><a href="/twitter/">Twitter</a></li>
                 <li><a href="/facebook/">Facebook</a></li>
 			</ul>
-			<div id="broadcast">
-				<form id="">
-					{%csrf_token%}
-					{{broadcast_form}}
-					<input id="broadcast-submit" type="submit" value="Broadcast"></input>
-				</form>
-			</div>
+
 		</div>
 	</div>
 </div>
