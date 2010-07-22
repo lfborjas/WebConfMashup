@@ -11,7 +11,8 @@ except:
     import django.utils.simplejson as json
 from django.http import HttpResponse
 from django.template import RequestContext
-from settings import FACEBOOK_APP_ID, FACEBOOK_APP_SECRET
+from django.conf import settings
+
 
 def _broadcast(text):
     """Broadcast the text in the sites"""
@@ -33,7 +34,7 @@ def broadcast(request):
             return HttpResponse(json.dumps({'valid': False}), mimetype="application/json" )
     else:
         form = BroadcastForm()
-        return render_to_response('base.html', {'broadcast_form': form} ,context_instance=RequestContext(request))
+        return render_to_response('base.html', {'TWITTER': settings.TWITTER} ,context_instance=RequestContext(request))
 
 def feeds(request):
     """Get a jsonlist of the feeds"""
@@ -42,7 +43,7 @@ def feeds(request):
     return HttpResponse(json.dumps({'feed': mark_safe(render_to_string("feed.html", {'feed': feeds}))}))
 
 def facebook_feed(request):
-    fb_user = facebook.get_user_from_cookie(request.COOKIES, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET)
+    fb_user = facebook.get_user_from_cookie(request.COOKIES, settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
 
     if fb_user:
         graph = facebook.GraphAPI(fb_user["access_token"])

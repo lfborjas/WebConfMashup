@@ -4,7 +4,7 @@ body{
     background-color: #8dabf6;
 }
 
-#broadcast-submit{
+#broadcast-submit, #signout{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	background: #42c318;
@@ -15,6 +15,7 @@ body{
 	text-align:center;	
 }
 
+<<<<<<< HEAD
 #feed-list{
     list-style:none;
 }
@@ -40,4 +41,12 @@ body{
 
 .ui-tabs{
     background-color: #4d6cba !important; 
+}
+
+#timeline{
+	list-style-type: none;
+}
+
+.twitter-anywhere-user{
+	color: #88a206 !important;
 }
