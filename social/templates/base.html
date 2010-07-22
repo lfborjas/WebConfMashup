@@ -6,14 +6,17 @@
  <link rel="stylesheet" href="/static/css/jquery-ui-1.8.2.custom.css" />
  {% block stylesheets %} {% endblock %}
  <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
-  <script src="http://platform.twitter.com/anywhere.js?id={{TWITTER.API_KEY}}&v=1" type="text/javascript"></script>
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+ <script src="http://platform.twitter.com/anywhere.js?id={{TWITTER.API_KEY}}&v=1" type="text/javascript"></script>
+ <script type="text/javascript" src="http://www.google.com/jsapi"></script>
  <script type="text/javascript" src="/static/js/jquery-ui-1.8.2.custom.min.js"></script>
+ <!-- The following file implements the facebook API, mostly FBML tags -->
  <script src="http://connect.facebook.net/en_US/all.js"></script>
  <!-- The following file implements the @Anywhere twitter api: http://dev.twitter.com/anywhere/begin -->
  <script type="text/javascript" src="/static/js/twitter.js"></script>
  <!-- The following implements some google calendar functionality -->
  <script type="text/javascript" src="/static/js/gcalendar.js"></script>
+
+ <script type="text/javascript" src="/static/js/facebook.js"></script>
  {% block scripts %} {% endblock %}
 
  <link rel="shortcut icon" href="/static/images/favicon.ico" />
@@ -23,13 +26,20 @@
 <!-- This is to get facebook tags working -->
 <div id="fb-root"></div>
 <script>
-        FB.init({appId: '136659293032684', status: true, cookie: true, xfbml: true});
-        FB.Event.subscribe('auth.sessionChange', function(response) {
-          if (response.session) {
 
-          } else {
-            // The user has logged out, and the cookie has been cleared
-          }
+        FB.init({appId: '{{ FACEBOOK_APP_ID }}', status: true, cookie: true, xfbml: true});
+        FB.Event.subscribe('auth.sessionChange', function(response) {
+            if (response.session) {
+                $.get('/facebook-wall/',function(data){
+                    $('#facebook-feed').html(data);
+                });
+                $.get('/facebook-events/',function(data){
+                    $('#facebook-events').html(data);
+                });
+            } else {
+                $('#facebook-feed').html('');
+                $('#facebook-events').html('');
+            }
         });
 </script>
 <!-- Here ends facebook tags tweak -->
@@ -38,7 +48,7 @@
 	<div id="main">
 	    <div id="header">
 	    	<h1>Mashup Demo</h1>
-            <fb:login-button id="faceboob_login" autologoutlink="true" perms="email, publish_stream, create_event, offline_access, read_stream"></fb:login-button>
+
 	    </div>
 
 		<div id="menu">
@@ -46,13 +56,53 @@
         		<li><a href="/feeds/">Feeds</a></li>
                 <li><a href="#google">Google</a></li>
                 <li><a href="#twitter">Twitter</a></li>                
-                <li><a href="/facebook/">Facebook</a></li>
+                <li><a href="#facebook">Facebook</a></li>
 
-			</ul>           
+			</ul>
+
+            <div id="facebook">
+                <fb:login-button id="faceboob_login" autologoutlink="true" perms="email, publish_stream, create_event, user_events, offline_access, read_stream"></fb:login-button>
+                <div id="facebook_menu">
+                    <ul>
+        		        <li><a href="#wall">wall</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#more">More...</a></li>
+			        </ul>
+
+                    <div id="wall">
+                        {% if facebook_wall %}
+                            <form id="facebook-status-form" action="/facebook-wall/" method="POST">{% csrf_token %}
+                            {{ status_form }}<input type="submit" name="send" value="send">
+                            </form>
+                        {% endif %}
+                        <ul id="facebook-feed" class="feed-list">
+                        {% if facebook_wall %}
+                            {{ facebook_wall|safe }}
+                        {% endif %}
+                        </ul>
+
+                    </div>
+
+                    <div id="events">
+                       <ul id="facebook-events" class="feed-list">
+                       {% if facebook_events %}
+                        {{ facebook_events|safe }}
+                       {% endif %}
+                       </ul>
+                    </div>
+
+                    <div id="more">
+                        <fb:friendpile></fb:friendpile>
+                        <fb:like-box profile_id="136659293032684"></fb:like-box>
+                    </div>
+                    
+                </div>
+			</div>
+
 			<div id="twitter">
 				<div id="twitter-connect-placeholder"></div>
 				<div id="status"></div>
-				<ul id="timeline"></ul>
+				<ul id="timeline" class="feed-list"></ul>
 			</div>
 			<div id="google">
 				<!-- For some reason, the js api needs an image in the page -->				

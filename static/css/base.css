@@ -15,12 +15,11 @@ body{
 	text-align:center;	
 }
 
-<<<<<<< HEAD
-#feed-list{
+.feed-list{
     list-style:none;
 }
 
-#feed-list li{
+.feed-list li{
     background-color: #8dabf6;
     color:#fff;
     min-height:70px;
@@ -38,15 +37,20 @@ body{
     -webkit-border-bottom-right-radius: 15px;
 
 }
-
+/*
 .ui-tabs{
     background-color: #4d6cba !important; 
 }
-
-#timeline{
-	list-style-type: none;
-}
+*/
 
 .twitter-anywhere-user{
 	color: #88a206 !important;
+}
+
+#menu, .ui-tabs-panel{
+    background-color: #4d6cba !important;
+}
+
+#facebook_extras{
+    float:right;
 }

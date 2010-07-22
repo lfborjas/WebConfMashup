@@ -1,7 +1,8 @@
 
 $(function() {
-    $("#menu").tabs();    
-    
+    $("#menu").tabs();
+    $("#facebook_menu").tabs();
+
     function showInfo(currentUser){
       screenName = currentUser.data('screen_name');
       profileImage = currentUser.data('profile_image_url');
