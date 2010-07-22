@@ -7,6 +7,7 @@ except:
     import django.utils.simplejson as json
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.conf import settings
 
 def _broadcast(text):
     """Broadcast the text in the sites"""
@@ -28,7 +29,7 @@ def broadcast(request):
             return HttpResponse(json.dumps({'valid': False}), mimetype="application/json" )
     else:
         form = BroadcastForm()
-        return render_to_response('base.html', {'broadcast_form': form} ,context_instance=RequestContext(request))
+        return render_to_response('base.html', {'TWITTER': settings.TWITTER} ,context_instance=RequestContext(request))
 
 def feeds(request):
     """Get a jsonlist of the feeds"""

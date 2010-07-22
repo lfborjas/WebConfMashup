@@ -97,4 +97,6 @@ INSTALLED_APPS = (
 
 STATIC_DOC_ROOT = os.path.join(ROOT_PATH, 'static')
 
-FACEBOOK_APP_ID
+TWITTER = {'API_KEY': 'wplGjWbRNGNSRYpmyJlwug',
+           'CONSUMER_KEY': 'wplGjWbRNGNSRYpmyJlwug',
+           'CONSUMER_SECRET': 'P6LjGdEiyz2XOB9QHmLsdBQmuUkA7ypD02QzqidpURk'}
