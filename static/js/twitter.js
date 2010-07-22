@@ -13,15 +13,21 @@ $(function() {
       });
       //show the twitter box:
       twttr.anywhere(function(T){
-    	  T('#status').tweetBox({label: "O RLY?"});
+    	  T('#status').tweetBox({
+    		  label: "O RLY?",
+    		  onTweet: function(t, htmlt){
+    			  $("#timeline").prepend("<li class='tweet'> @"+screenName+" "
+						   +t+"</li>");
+    			  T("#timeline li:first").hovercards();
+    		  }
+    	  });
       });
       
   	  //show the timeline with hovercards
       twttr.anywhere(function(T){
     	  	var buf = 1;
     	  	T.User.current().homeTimeline().each(function(status){
-        		$("#timeline").append("<li class='tweet'> <span class='twitter-user'>@"+status.user.screenName+"</span> "
-        																			   +status.text+"</li>");
+        		$("#timeline").append("<li class='tweet'> @"+status.user.screenName+" "+status.text+"</li>");
         		//update every 19 tweets
         		buf = (buf%20 == 0) ? 1 : buf+1;
         		if(buf==1){        			
