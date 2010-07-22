@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render_to_response
-from social.forms import BroadcastForm, StatusForm
+from social.forms import BroadcastForm, StatusForm, EventForm
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
@@ -56,16 +56,30 @@ def facebook_events(request):
 
     if fb_user:
         graph = facebook.GraphAPI(fb_user["access_token"])
-        feed = graph.get_connections('me', 'events')
-        feed_list = []
-        for entry in feed['data']:
-            if entry.has_key('name'):
-                feed_list.append(entry['name'])              
-        return HttpResponse(mark_safe(render_to_string('feed.html', {'feeds':feed_list})))
+
+        if request.method == "POST" and request.is_ajax():
+            form =  EventForm(request.POST)
+            if form.is_valid():
+                graph.put_object('me', 'events', name=request.POST['name'],
+                                 start_time=request.POST['start_time'],
+                                 end_time=request.POST['end_time'])
+                return HttpResponse(json.dumps({'status': 'saved'}), mimetype="application/json")
+            else:
+                
+                return HttpResponse(json.dumps({'status': 'error'}), mimetype="application/json")
+
+        else:
+
+            feed = graph.get_connections('me', 'events')
+            feed_list = []
+            for entry in feed['data']:
+                if entry.has_key('name'):
+                    feed_list.append(entry['name'])
+
+            return HttpResponse(mark_safe(render_to_string('feed.html', {'feeds':feed_list})))
 
     else:
         return None
-
 
 def broadcast(request):
     """Post the broadcast and return the result via JSON, or show the form"""
@@ -87,11 +101,13 @@ def broadcast(request):
     else:
         form = BroadcastForm()
         status_form = StatusForm()
+        event_form = EventForm()
         return render_to_response('base.html', {'TWITTER': settings.TWITTER,
                                                 'FACEBOOK_APP_ID': settings.FACEBOOK_APP_ID,
                                                 'facebook_wall': fb_wall,
                                                 'facebook_events': fb_events,
-                                                'status_form':status_form},context_instance=RequestContext(request))
+                                                'status_form':status_form,
+                                                'event_form': event_form},context_instance=RequestContext(request))
 
 def feeds(request):
     """Get a jsonlist of the feeds"""
