@@ -93,9 +93,9 @@ def broadcast(request):
                                                 'facebook_wall': fb_wall,
                                                 'facebook_events': fb_events,
                                                 'status_form':status_form,
-                                                'event_form': GEventForm(initial = {'gevent_start': datetime.datetime.now().isoformat(),
+                                                'event_form': GEventForm(initial = {'gevent_start': datetime.datetime.now().isoformat()[:-3],
                                                                                     'gevent_end': (datetime.datetime.now()+
-                                                                                                   datetime.timedelta(hours=1)).isoformat()
+                                                                                                   datetime.timedelta(hours=1)).isoformat()[:-3]
                                                                                     })},context_instance=RequestContext(request))
 
 def feeds(request):

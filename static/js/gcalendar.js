@@ -13,16 +13,16 @@ function onGoogleDataLoad(){
 		$('#google-login').click(logIn);
 	}else{//is authenticated
 		//bind the logout and show the feed
-		//postLogin();		
+		postLogin();		
 		
 	}
 	
-	$('#create-event').click(insertEvent());
+	$('#create-event').click(insertEvent);
 	
-	function insertEvent(){
+	function insertEvent(e){
+		e.preventDefault();
 		var entry = new google.gdata.calendar.CalendarEventEntry();
 		entry.setTitle(google.gdata.atom.Text.create($('#id_gevent_title').val()));
-
 		// Create a When object that will be attached to the event
 		var when = new google.gdata.When();
 
@@ -34,12 +34,14 @@ function onGoogleDataLoad(){
 
 		// Add the When object to the event 
 		entry.addTime(when);
-		
+		console.log("about to insert...");
 		calendarService.insertEntry(feedUri, entry,
 				function(result){ //success callback
+					console.log("inserted!");
 					getCalendarFeed();
 				},
 				function(error){//error callback
+					console.log(error);
 					$('#calendar-error').append("<strong>"+error+"</strong>");
 				}, //error callback
 				google.gdata.calendar.CalendarEventEntry)
