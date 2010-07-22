@@ -53,3 +53,4 @@ def facebook_feed(request):
                 feed_list.append(entry['message'])
 
         return HttpResponse(mark_safe(render_to_string('feed.html', {'feeds':feed_list})))
+

@@ -22,7 +22,7 @@
 <!-- This is to get facebook tags working -->
 <div id="fb-root"></div>
 <script>
-        FB.init({appId: '145237748824969', status: true, cookie: true, xfbml: true});
+        FB.init({appId: '136659293032684', status: true, cookie: true, xfbml: true});
         FB.Event.subscribe('auth.sessionChange', function(response) {
           if (response.session) {
 
@@ -38,16 +38,17 @@
 	    <div id="header">
 	    	<h1>Mashup Demo</h1>
             <fb:login-button id="faceboob_login" autologoutlink="true" perms="email, publish_stream, create_event, offline_access, read_stream"></fb:login-button>
-	    </div> 	
+	    </div>
+
 		<div id="menu">
 			<ul>	    
         		<li><a href="/feeds/">Feeds</a></li>
                 <li><a href="/google/">Google</a></li>
                 <li><a href="/twitter/">Twitter</a></li>
                 <li><a href="/facebook/">Facebook</a></li>
-			</ul>
-
+			</ul>           
 		</div>
+
 	</div>
 </div>
 </body>

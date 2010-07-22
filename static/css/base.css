@@ -1,12 +1,13 @@
 body{
 	font-family: helvetica, arial, sans-serif;
 	height: 100%;
+    background-color: #8dabf6;
 }
 
 #broadcast-submit{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
-	background:#93c3cd;
+	background: #42c318;
 	border:0;
 	color:#333333;
 	cursor:pointer;
@@ -14,6 +15,29 @@ body{
 	text-align:center;	
 }
 
-#facebook_login{
-    float:right;
+#feed-list{
+    list-style:none;
+}
+
+#feed-list li{
+    background-color: #8dabf6;
+    color:#fff;
+    min-height:70px;
+    width:800px;
+    margin:20px;
+    padding:20px;
+
+    -moz-border-radius-topleft:15px;
+    -webkit-border-top-left-radius: 15px;
+    -moz-border-radius-topright: 15px;
+    -webkit-border-top-right-radius: 15px;
+    -moz-border-radius-bottomleft: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    -moz-border-radius-bottomright: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+
+}
+
+.ui-tabs{
+    background-color: #4d6cba !important; 
 }
