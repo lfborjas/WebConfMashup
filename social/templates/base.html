@@ -52,8 +52,7 @@
 	    </div>
 
 		<div id="menu">
-			<ul>	    
-        		<li><a href="/feeds/">Feeds</a></li>
+			<ul>          		
                 <li><a href="#google">Google</a></li>
                 <li><a href="#twitter">Twitter</a></li>                
                 <li><a href="#facebook">Facebook</a></li>
@@ -108,8 +107,11 @@
 				<!-- For some reason, the js api needs an image in the page -->				
 				<img src="/static/images/auth.png" style="position:absolute; top: -1000px;"></img>
 				<button id="google-login">Login to calendar</button>
-				<div id="event-form">
-					
+				<div id="event-form" style="display: none;">
+					<form id="event-details">
+						<table>{{event_form}}</table>
+						<button id="create-event">Create</button>
+					</form>
 				</div>
 				<span id="calendar-error"></span>
 				<ul id="calendar-feed"></ul>
