@@ -7,9 +7,12 @@
  {% block stylesheets %} {% endblock %}
  <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
   <script src="http://platform.twitter.com/anywhere.js?id={{TWITTER.API_KEY}}&v=1" type="text/javascript"></script>
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
  <script type="text/javascript" src="/static/js/jquery-ui-1.8.2.custom.min.js"></script>
  <!-- The following file implements the @Anywhere twitter api: http://dev.twitter.com/anywhere/begin -->
  <script type="text/javascript" src="/static/js/twitter.js"></script>
+ <!-- The following implements some google calendar functionality -->
+ <script type="text/javascript" src="/static/js/gcalendar.js"></script>
  {% block scripts %} {% endblock %}
 
  <link rel="shortcut icon" href="/static/images/favicon.ico" />
@@ -24,7 +27,7 @@
 		<div id="menu">
 			<ul>	    
         		<li><a href="/feeds/">Feeds</a></li>
-                <li><a href="/google/">Google</a></li>
+                <li><a href="#google">Google</a></li>
                 <li><a href="#twitter">Twitter</a></li>                
                 <li><a href="/facebook/">Facebook</a></li>
 			</ul>			
@@ -32,6 +35,13 @@
 				<div id="twitter-connect-placeholder"></div>
 				<div id="status"></div>
 				<ul id="timeline"></ul>
+			</div>
+			<div id="google">
+				<!-- For some reason, the js api needs an image in the page... -->
+				<img src="/static/images/auth.png" style="position:absolute; top: -1000px;"></img>
+				<button id="google-login">Login to calendar</button>
+				<span id="calendar-error"></span>
+				<ul id="calendar-feed"></ul>
 			</div>
 		</div>
 	</div>
