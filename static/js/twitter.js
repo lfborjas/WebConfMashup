@@ -1,6 +1,6 @@
 
 $(function() {
-    $("#menu").tabs();
+    $("#menu").tabs();    
     
     function showInfo(currentUser){
       screenName = currentUser.data('screen_name');
@@ -16,6 +16,21 @@ $(function() {
     	  T('#status').tweetBox({label: "O RLY?"});
       });
       
+  	  //show the timeline with hovercards
+      twttr.anywhere(function(T){
+    	  	var buf = 1;
+    	  	T.User.current().homeTimeline().each(function(status){
+        		$("#timeline").append("<li class='tweet'> <span class='twitter-user'>@"+status.user.screenName+"</span> "
+        																			   +status.text+"</li>");
+        		//update every 19 tweets
+        		buf = (buf%20 == 0) ? 1 : buf+1;
+        		if(buf==1){        			
+        			T.hovercards();
+        		}
+        		
+      });
+    	    
+   	 }); 
     }
     
             

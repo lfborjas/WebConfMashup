@@ -13,3 +13,11 @@ body{
 	font-size:1.5em;
 	text-align:center;	
 }
+
+#timeline{
+	list-style-type: none;
+}
+
+.twitter-anywhere-user{
+	color: #88a206 !important;
+}
