@@ -1,6 +1,5 @@
 Django==1.2.1
 django-socialauth==0.1.2c
--f http://github.com/facebook/python-sdk/tarball/master
 oauth==1.0.1
 python-openid==2.2.5
 wsgiref==0.1.2
